@@ -18,7 +18,7 @@ class Color(Enum):
 # Reports MatchNotExhaustive:
 #   Cases within match statement do not exhaustively handle all values.
 #   Unhandled type: "Literal[Color.BLUE]"
-def handle_color(color: Color) -> None:
+def handle_color(color: Color):
     match (color):
         case Color.RED:
             ...

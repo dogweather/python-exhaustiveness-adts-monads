@@ -24,7 +24,7 @@ class OrderStatus(Enum):
 # Reports MatchNotExhaustive:
 #   Cases within match statement do not exhaustively handle all values.
 #   Unhandled type: "Literal[OrderStatus.Scheduled]"
-def handle_order_1(status: OrderStatus) -> None:
+def handle_order_1(status: OrderStatus):
     match (status):
         case OrderStatus.Ready:
             print("ship order")
@@ -36,7 +36,7 @@ def handle_order_1(status: OrderStatus) -> None:
 # Reports MatchNotExhaustive:
 #   Cases within match statement do not exhaustively handle all values
 #   Unhandled type: "Literal[OrderStatus.Scheduled]"
-def handle_order_2(status: OrderStatus) -> None:
+def handle_order_2(status: OrderStatus):
     match (status):
         case OrderStatus.Ready:
             print("ship order")
@@ -54,7 +54,7 @@ def handle_order_2(status: OrderStatus) -> None:
 # * No need to check for unknown cases. (A crutch for the lack of exhaustiveness checking.)
 # * Every case is handled, now and in the future.
 # * The code is shorter and more expressive.
-def handle_order_3(status: OrderStatus) -> None:
+def handle_order_3(status: OrderStatus):
     match (status):
         case OrderStatus.Ready:
             print("ship order")
