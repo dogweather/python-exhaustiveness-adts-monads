@@ -9,6 +9,7 @@ Color = Literal["R", "G", "B"]
 
 
 # Reports MatchNotExhaustive:
+#   Cases within match statement do not exhaustively handle all values.
 #   Unhandled type: "Literal['B']"
 def get_color_name_1(color: Color):
     match (color):

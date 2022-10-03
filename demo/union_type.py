@@ -4,6 +4,7 @@
 
 
 # Reports MatchNotExhaustive:
+#     Cases within match statement do not exhaustively handle all values.
 #     Unhandled type: "float"
 #
 # Also reports GeneralTypeIssues:
