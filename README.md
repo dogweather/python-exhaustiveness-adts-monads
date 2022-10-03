@@ -13,7 +13,9 @@ poetry install
 poetry shell
 ```
 
-Now you can run Pyright and see the exhaustiveness checks for all the files:
+## Now you can run Pyright
+
+To see the exhaustiveness checks for all the files:
 
 ```
 pyright
