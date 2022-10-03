@@ -8,3 +8,6 @@ this technique.
 
 You'll need poetry and Python 3.10. I used 3.10.7.
 
+```
+poetry install
+```
