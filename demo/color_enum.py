@@ -15,11 +15,9 @@ class Color(Enum):
     BLUE = "BLUE"  # I just added this
 
 
+# Reports MatchNotExhaustive:
+#   Unhandled type: "Literal[Color.BLUE]"
 def handle_color(color: Color) -> None:
-    """
-    Error raised:
-        Unhandled type: "Literal[Color.BLUE]"
-    """
     match (color):
         case Color.RED:
             ...

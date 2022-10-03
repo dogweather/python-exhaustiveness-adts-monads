@@ -8,11 +8,9 @@ from typing import Literal
 Color = Literal["R", "G", "B"]
 
 
+# Reports MatchNotExhaustive:
+#   Unhandled type: "Literal['B']"
 def get_color_name_1(color: Color):
-    """
-    Error raised:
-        Unhandled type: "Literal['B']"
-    """
     match (color):
         case "R":
             return "Red"
@@ -21,10 +19,8 @@ def get_color_name_1(color: Color):
             return "Green"
 
 
+# No error reported.
 def get_color_name_2(color: Color):
-    """
-    No error raised.
-    """
     match (color):
         case "R":
             return "Red"
