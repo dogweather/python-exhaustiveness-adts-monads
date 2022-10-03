@@ -6,7 +6,7 @@ this technique.
 
 ## To set up
 
-You'll need [Poetry]([url](https://python-poetry.org)) and Python 3.10. I used 3.10.7.
+You'll need [Poetry](https://python-poetry.org) and Python 3.10. I used 3.10.7.
 
 ```
 poetry install
