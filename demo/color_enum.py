@@ -1,8 +1,8 @@
-# Originally from "4 - Exhaustiveness checking with mypy"
+# Originally "4 - Exhaustiveness checking with mypy"
 # by Daily dose of Python.
 # https://jerry-git.github.io/daily-dose-of-python/doses/4/
 
-# Modified to use the new true exhaustiveness checking enabled
+# Modified to use the new exhaustiveness checking enabled
 # by Python 3.10's match statement and Pyright's MatchNotExhaustive
 # check.
 
