@@ -1,4 +1,4 @@
-# Python Exhaustiveness Checking demo code
+# Python Exhaustiveness Checking Demo
 
 Demo code showing off the new true exhaustiveness checks with Python 3.10 + Pyright.
 I created this repo to support my blog post and make it easy to try out
