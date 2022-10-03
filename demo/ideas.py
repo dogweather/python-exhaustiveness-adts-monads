@@ -67,55 +67,6 @@ def handle_order_3(status: OrderStatus) -> None:
 
 
 #
-# Exhaustiveness checking a Union
-#
-
-
-def get_float_1(num: str | float) -> float:
-    match (num):
-        case str(num):
-            return float(num)
-
-
-def get_float_2(num: str | float) -> float:
-    match (num):
-        case str(num):
-            return float(num)
-
-        case float(num):
-            return num
-
-
-#
-# Exhaustiveness checking a Literal
-#
-
-
-Color = Literal["R", "G", "B"]
-
-
-def get_color_name_1(color: Color) -> str:
-    match (color):
-        case "R":
-            return "Red"
-
-        case "G":
-            return "Green"
-
-
-def get_color_name_2(color: Color) -> str:
-    match (color):
-        case "R":
-            return "Red"
-
-        case "G":
-            return "Green"
-
-        case "B":
-            return "Blue"
-
-
-#
 # Making an ADT with Python 10.
 #
 
@@ -140,10 +91,6 @@ class Shipped:
     with_carrier: Literal["UPS", "Fedex", "USPS", "DHL"]
 
 
-# Implicit TypeAlias, recognized by Pyright.
-# This can also be written explicitly as:
-#
-# OrderStatus_5: TypeAlias = Ready | Scheduled | Shipped
 OrderStatus_5 = Ready | Scheduled | Shipped
 
 
