@@ -6,14 +6,14 @@ this technique.
 
 ## To set up
 
-You'll need [Poetry](https://python-poetry.org) and Python 3.10. I used 3.10.7.
+You'll need [Poetry](https://python-poetry.org) and Python 3.10. I used 3.10.6 and 3.10.7 to write this.
 
 ```
 poetry install
 poetry shell
 ```
 
-Now you can run Pyright and see the exhaustiveness checking:
+Now you can run Pyright and see the exhaustiveness checks for all the files:
 
 ```
 pyright
@@ -22,6 +22,8 @@ pyright
 ## VS Code
 
 VS Code has **Pylance** checking built into its Python extension. This
-brings the Pyright checking into the IDE. Pylance/Pyright should pick up
+brings the Pyright checking into the IDE. IMO it's an amazing experience.
+
+Pylance/Pyright should pick up
 the settings from `pyproject.toml`. The settings in VS Code seem to mostly
 be overridden by the file.
