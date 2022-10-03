@@ -3,6 +3,19 @@ import datetime
 from enum import Enum
 from typing import Any, Callable, Literal, TypeAlias
 
+
+#
+# Original Source: https://hakibenita.com/python-mypy-exhaustive-checking.
+# It uses `assert_never` to simulate exhaustive checking.
+#
+# Daily Dose of Python, "Exhaustiveness checking with mypy" also showing
+# simulated e.c.
+# https://jerry-git.github.io/daily-dose-of-python/doses/4/
+#
+# Python will introduce assert_never() in 3.11.
+# https://typing.readthedocs.io/en/latest/source/unreachable.html
+#
+
 #
 # Exhaustiveness checking an Enum
 #
