@@ -1,7 +1,8 @@
 # Python Exhaustiveness Checking Demo
 
-Demo code showing off the new true exhaustiveness checks with Python 3.10 + Pyright.
-I created this repo to support my blog post and make it easy to try out
+Demo code showing the new true exhaustiveness checking with Python 3.10 + Pyright.
+I created this repo to support [my blog post](https://dogweather.dev/2022/10/03/i-discovered-that-python-now-can-do-true-match-exhaustiveness-checking/)
+and make it easy to try out
 this technique.
 
 ## To set up
