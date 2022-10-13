@@ -9,7 +9,6 @@
 #   a variable name when assigning.
 
 
-
 from dataclasses import dataclass
 from typing import Any, TypeAlias
 import datetime
@@ -49,7 +48,7 @@ class Err:
 Result: TypeAlias = Ok | Err
 
 
-def order_date_2(status: OrderStatus_6) -> Result:
+def order_date(status: OrderStatus_6) -> Result:
     match (status):
         case Ready() | "unknown" | "not available":
             return Err("No date, unknown, or not available")
@@ -59,7 +58,7 @@ def order_date_2(status: OrderStatus_6) -> Result:
 
 
 def time_since_order(status: OrderStatus_6) -> Result:
-    match (order_date_2(status)):
+    match (order_date(status)):
         case Ok(date):
             return Ok(datetime.date.today() - date)
 
@@ -68,21 +67,14 @@ def time_since_order(status: OrderStatus_6) -> Result:
 
 
 def time_since_order_2(status: OrderStatus_6) -> datetime.timedelta:
-   return datetime.date.today() - order_date_2(status).unwrap()
+   return datetime.date.today() - order_date(status).unwrap()
 
 
 
 if __name__ == "__main__":
 
-    # Enforced error handling with Maybe
-    match (order_date(Ready())):
-        case Just(date):
-            print(f"Order date is {date}")
-        case Nothing():
-            print("No order date")
-
     # Enforced error handling with Result
-    match(order_date_2(Ready())):
+    match(order_date(Ready())):
         case Ok(date):
             print(f"Order date is {date}")
         case Err(error):
@@ -96,13 +88,14 @@ if __name__ == "__main__":
 
     print("Time since order: ", time_since_order_2(Ready()))
 
-    date = order_date_2(Ready())
+    date = order_date(Ready())
 
     # Fails typecheck because the type checking points out that
     # Err doesn't have a `value` attribute.
     print(date.value)
 
-    # Likewise, `date` may not have the error attribute.
+    # Likewise, `date` may not have the error attribute; fails
+    # typecheck.
     print(date.error)
 
     #
