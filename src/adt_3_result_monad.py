@@ -18,9 +18,6 @@ from typing import Any, TypeAlias
 class Ok:
     __value: Any  # Private for extra Monad-style safety
 
-    def is_ok(self) -> bool:
-        return True
-
     def unwrap(self):
         return self.__value
 
@@ -30,9 +27,6 @@ class Ok:
 @dataclass(frozen=True)
 class Err:
     __error: Any  # Private for extra Monad-style safety
-
-    def is_ok(self) -> bool:
-        return False
 
     def unwrap(self):
         raise Exception(self.__error)
