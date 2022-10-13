@@ -57,5 +57,6 @@ if __name__ == "__main__":
     # Fails typecheck
     print(result.__value)
 
-    # Passes typecheck
+    # Passes typecheck: Can only get the inner value when we
+    # handle the error case.
     value = result.unwrap_or(default=0)
