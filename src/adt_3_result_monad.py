@@ -33,9 +33,7 @@ class Err:
     def unwrap_or(self, default: Any) -> Any:
         return default
 
-
 Result: TypeAlias = Ok | Err
-
 
 
 if __name__ == "__main__":
