@@ -49,7 +49,7 @@ if __name__ == "__main__":
     #
     # Demonstrating extra safety from the private attributes.
     #
-    result = Ok("Success")
+    result = Ok(100)
 
     # Fails typecheck
     print(result.value)
