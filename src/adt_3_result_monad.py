@@ -58,4 +58,4 @@ if __name__ == "__main__":
     print(result.__value)
 
     # Passes typecheck
-    value = result.unwrap_or("Default")
+    value = result.unwrap_or(default=0)
