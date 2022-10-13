@@ -11,41 +11,10 @@
 
 
 from dataclasses import dataclass
-from typing import Any, Callable, TypeAlias
+from typing import Any, TypeAlias
 import datetime
 
-from order_status_adt import OrderStatus_6, Ready, Scheduled, Shipped
-
-
-#
-# Dynamically typed Maybe
-#
-
-@dataclass
-class Nothing:
-    pass
-
-@dataclass
-class Just:
-    value: Any
-
-
-Maybe: TypeAlias = Just | Nothing
-
-
-
-def order_date(status: OrderStatus_6) -> Maybe:
-    match (status):
-        case Ready() | "unknown" | "not available":
-            return Nothing()
-
-        case Scheduled(on) | Shipped(on):
-            return Just(on)
-
-
-# Idea: Maybe constructor. Wraps a value in a Maybe.
-#       Not used in this example.
-# maybe: Callable[[Any], Maybe] = lambda x: Just(x) if x is not None else Nothing()
+from adt_1_order_status import OrderStatus_6, Ready, Scheduled, Shipped
 
 
 # Result type
@@ -53,6 +22,9 @@ def order_date(status: OrderStatus_6) -> Maybe:
 @dataclass
 class Ok:
     value: Any
+
+    def is_ok(self) -> bool:
+        return True
 
     def unwrap(self):
         return self.value
@@ -63,6 +35,9 @@ class Ok:
 @dataclass
 class Err:
     error: Any
+
+    def is_ok(self) -> bool:
+        return False
 
     def unwrap(self):
         raise Exception(self.error)
@@ -127,8 +102,12 @@ if __name__ == "__main__":
     # Err doesn't have a `value` attribute.
     print(date.value)
 
+    # Likewise, `date` may not have the error attribute.
+    print(date.error)
+
     #
-    # These succeed typecheck because we handle the error case
+    # The type of `date` *must* be checked before accessing.
+    # These succeed the typecheck because we handle the error case.
     #
 
     # Return the given default value on failure.
@@ -136,3 +115,18 @@ if __name__ == "__main__":
 
     # Crash the application on failure.
     print(date.unwrap())
+
+    # Pyright can't infer `date`'s type throught the `if`. 
+    # This code doesn't typecheck.
+    if date.is_ok():
+        print(date.value)
+    else:
+        print(date.error)
+
+    # Instead, we can use a match expression to handle the
+    # error case. Pyright can do this flow analysis and type-narrowing.
+    match (date):
+        case Ok(date):
+            print(date)
+        case Err(error):
+            print(error)
