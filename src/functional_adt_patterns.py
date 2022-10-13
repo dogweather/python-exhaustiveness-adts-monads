@@ -57,12 +57,18 @@ class Ok:
     def unwrap(self):
         return self.value
 
+    def unwrap_or(self, _: Any) -> Any:
+        return self.value
+
 @dataclass
 class Err:
     error: Any
 
     def unwrap(self):
         raise Exception(self.error)
+
+    def unwrap_or(self, default: Any) -> Any:
+        return default
 
 
 Result: TypeAlias = Ok | Err
@@ -114,3 +120,19 @@ if __name__ == "__main__":
             print(f"Error: {error}")
 
     print("Time since order: ", time_since_order_2(Ready()))
+
+    date = order_date_2(Ready())
+
+    # Fails typecheck because the type checking points out that
+    # Err doesn't have a `value` attribute.
+    print(date.value)
+
+    #
+    # These succeed typecheck because we handle the error case
+    #
+
+    # Return the given default value on failure.
+    print(date.unwrap_or("No date"))
+
+    # Crash the application on failure.
+    print(date.unwrap())
