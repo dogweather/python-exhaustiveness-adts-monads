@@ -1,4 +1,3 @@
-
 #
 # Implementing some functional patterns with ADTs
 # This example makes Result into a Monad: it prevents
