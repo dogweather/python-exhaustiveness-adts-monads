@@ -10,8 +10,6 @@ from dataclasses import dataclass
 from typing import Any, TypeAlias
 
 
-
-
 # Result type, now as a Monad. (I think! It pretty much follows
 # the Monad pattern.)
 

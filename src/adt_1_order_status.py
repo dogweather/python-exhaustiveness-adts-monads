@@ -43,6 +43,10 @@ def handle_order_5(status: OrderStatus_5) -> None:
 OrderStatus_6 = Literal["unknown", "not available"] | Ready | Scheduled | Shipped
 
 
+#
+# Fails typecheck: Literals "unknown" and "not available" are not
+# handled.
+#
 def handle_order_6a(status: OrderStatus_6):
     match (status):
         case Ready():
@@ -52,6 +56,9 @@ def handle_order_6a(status: OrderStatus_6):
             print(f"shipping date is {on}")
 
 
+#
+# Passes typecheck.
+#
 def handle_order_6b(status: OrderStatus_6):
     match (status):
         case Ready():
@@ -68,8 +75,15 @@ def handle_order_6b(status: OrderStatus_6):
 
 
 if __name__ == "__main__":
+    #
+    # These all pass typecheck.
+    #
     handle_order_6b(Ready())
     handle_order_6b(Scheduled(on=datetime.date(2020, 1, 1)))
     handle_order_6b(Shipped(on=datetime.date(2020, 1, 1), with_carrier="UPS"))
     handle_order_6b("unknown")
+
+    # This typo is caught by Pyright: It fails the typecheck.
+    # I.e., typos have been elevated to the type system, and are
+    # caught at develop / CI time.
     handle_order_6b("unknwn")
