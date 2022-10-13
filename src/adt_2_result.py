@@ -106,7 +106,9 @@ if __name__ == "__main__":
     # Return the given default value on failure.
     print(date.unwrap_or("No date"))
 
-    # Crash the application on failure.
+    # Crash the application on failure. Here, unwrap() = crash
+    # because this is top-level code. It raises an Exception if
+    # it's not `Ok(value)`.
     print(date.unwrap())
 
     # Pyright can't infer `date`'s type throught the `if`. 
