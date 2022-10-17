@@ -9,8 +9,9 @@
 #   a variable name when assigning.
 
 
+from ast import Call
 from dataclasses import dataclass
-from typing import Any, TypeAlias
+from typing import Any, TypeAlias, TypeVar, Generic, Callable
 import datetime
 
 from adt_1_order_status import OrderStatus_6, Ready, Scheduled, Shipped
@@ -18,25 +19,27 @@ from adt_1_order_status import OrderStatus_6, Ready, Scheduled, Shipped
 
 # Result type
 
-@dataclass
-class Ok:
-    value: Any
+T = TypeVar("T")
 
-    def is_ok(self) -> bool:
-        return True
+@dataclass
+class Ok(Generic[T]):
+    value: T
+
+    # def and_then(self, f: Callable[[T] -> Result[T]]) -> T:
+    #     return f(self.value)
 
     def unwrap(self):
         return self.value
 
-    def unwrap_or(self, _: Any) -> Any:
+    def unwrap_or(self, _: T) -> T:
         return self.value
 
 @dataclass
 class Err:
     error: Any
 
-    def is_ok(self) -> bool:
-        return False
+    # def and_then(self, _: Any) -> "Err":
+    #     return self
 
     def unwrap(self):
         raise Exception(self.error)
@@ -45,10 +48,10 @@ class Err:
         return default
 
 
-Result: TypeAlias = Ok | Err
+Result: TypeAlias = Ok[T] | Err
 
 
-def order_date(status: OrderStatus_6) -> Result:
+def order_date(status: OrderStatus_6) -> Result[datetime.date]:
     match (status):
         case Ready() | "unknown" | "not available":
             return Err("No date, unknown, or not available")
@@ -57,7 +60,7 @@ def order_date(status: OrderStatus_6) -> Result:
             return Ok(on)
 
 
-def time_since_order(status: OrderStatus_6) -> Result:
+def time_since_order(status: OrderStatus_6) -> Result[datetime.timedelta]:
     match (order_date(status)):
         case Ok(date):
             return Ok(datetime.date.today() - date)
@@ -66,8 +69,8 @@ def time_since_order(status: OrderStatus_6) -> Result:
             return Err(error)
 
 
-def time_since_order_2(status: OrderStatus_6) -> datetime.timedelta:
-   return datetime.date.today() - order_date(status).unwrap()
+# def time_since_order_2(status: OrderStatus_6) -> Result:
+#     return order_date(status).and_then(lambda date: Ok(datetime.date.today() - date))
 
 
 
@@ -86,7 +89,7 @@ if __name__ == "__main__":
         case Err(error):
             print(f"Error: {error}")
 
-    print("Time since order: ", time_since_order_2(Ready()))
+    print("Time since order: ", time_since_order(Ready()))
 
     date = order_date(Ready())
 
@@ -104,7 +107,7 @@ if __name__ == "__main__":
     #
 
     # Return the given default value on failure.
-    print(date.unwrap_or("No date"))
+    print(date.unwrap_or(datetime.date.today()))
 
     # Crash the application on failure. Here, unwrap() = crash
     # because this is top-level code. It raises an Exception if
@@ -125,3 +128,5 @@ if __name__ == "__main__":
             print(date)
         case Err(error):
             print(error)
+
+    
